@@ -27,8 +27,8 @@ void MyListener::exitProgram(tinyrexxParser::ProgramContext *ctx) {
 }
 
 void enterStatement(tinyrexxParser::StatementContext *ctx) {
-	if (typeid(ctx->parent) == typeid(tinyrexxParser::If_stContext*)){}
-		//cout << "{" << endl;
+	if (dynamic_cast<tinyrexxParser::If_stContext*>(ctx->parent) != nullptr){}
+		cout << "{" << endl;
 }
 
 void exitStatement(tinyrexxParser::StatementContext *ctx) {
@@ -146,7 +146,7 @@ void MyListener::enterTest(tinyrexxParser::TestContext * ctx){
 }
 
 void MyListener::exitTest(tinyrexxParser::TestContext * ctx){
-    cout << ") {" << endl;
+    cout << ")" << endl;
 }
 
 
