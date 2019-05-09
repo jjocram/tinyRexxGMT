@@ -127,12 +127,13 @@ public:
   public:
     TestContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
+    std::vector<A_exprContext *> a_expr();
+    A_exprContext* a_expr(size_t i);
+    R_opContext *r_op();
     std::vector<TestContext *> test();
     TestContext* test(size_t i);
-    A_exprContext *a_expr();
     antlr4::tree::TerminalNode *NOT();
     B_opContext *b_op();
-    R_opContext *r_op();
 
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;

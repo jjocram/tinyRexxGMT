@@ -26,12 +26,12 @@ void MyListener::exitProgram(tinyrexxParser::ProgramContext *ctx) {
     cout << "}" << endl;
 }
 
-void enterStatement(tinyrexxParser::StatementContext *ctx) {
-	if (dynamic_cast<tinyrexxParser::If_stContext*>(ctx->parent) != nullptr){}
+void MyListener::enterStatement(tinyrexxParser::StatementContext * ctx) {
+	if (dynamic_cast<tinyrexxParser::If_stContext*>(ctx->parent) != nullptr)
 		cout << "{" << endl;
 }
 
-void exitStatement(tinyrexxParser::StatementContext *ctx) {
+void MyListener::exitStatement(tinyrexxParser::StatementContext *ctx) {
 	if (dynamic_cast<tinyrexxParser::If_stContext*>(ctx->parent) != nullptr){
 		cout << "}";
 		if (ctx->getRuleIndex() == 0 && ctx == (dynamic_cast<tinyrexxParser::If_stContext*>(ctx->parent))->statement()[0])
