@@ -27,15 +27,20 @@ void MyListener::exitProgram(tinyrexxParser::ProgramContext *ctx) {
 }
 
 void MyListener::enterStatement(tinyrexxParser::StatementContext * ctx) {
-	if (dynamic_cast<tinyrexxParser::If_stContext*>(ctx->parent) != nullptr)
+	if (dynamic_cast<tinyrexxParser::If_stContext*>(ctx->parent) != nullptr){
 		cout << "{" << endl;
+		indent += 4;
+	}
 }
 
 void MyListener::exitStatement(tinyrexxParser::StatementContext *ctx) {
 	if (dynamic_cast<tinyrexxParser::If_stContext*>(ctx->parent) != nullptr){
-		cout << "}";
-		if (ctx->getRuleIndex() == 0 && ctx == (dynamic_cast<tinyrexxParser::If_stContext*>(ctx->parent))->statement()[0])
-			cout << "else {" << endl;
+		cout << "}" << endl;
+		//cout << " Numero di statement "<<ctx->statement().size();
+		if (dynamic_cast<tinyrexxParser::If_stContext*>(ctx->parent)->statement().size() == 2 && ctx == (dynamic_cast<tinyrexxParser::If_stContext*>(ctx->parent))->statement()[0]){
+			cout << string(indent, ' ') << "else {" << endl;
+			indent += 4;
+		}
 	}
 }
 
