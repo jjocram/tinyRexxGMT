@@ -176,7 +176,7 @@ void MyListener::enterTest(tinyrexxParser::TestContext * ctx){
 }
 
 void MyListener::exitTest(tinyrexxParser::TestContext * ctx){
-    cout << ")" << endl;
+    cout << ")";
 }
 
 
