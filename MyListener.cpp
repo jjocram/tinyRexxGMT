@@ -148,10 +148,16 @@ void MyListener::exitW_loop(tinyrexxParser::W_loopContext * ctx){
 
 void MyListener::enterTest(tinyrexxParser::TestContext * ctx){
     cout << "(";
+	// controllo esistenza dell'operatore NOT
+	if(ctx->NOT() != NULL) {
+		cout << "!";
+	}
 }
 
 void MyListener::exitTest(tinyrexxParser::TestContext * ctx){
     cout << ")" << endl;
+	if(ctx->NOT() != NULL) {
+	}
 }
 
 
@@ -179,8 +185,8 @@ void MyListener::exitDo_loop(tinyrexxParser::Do_loopContext * ctx){
 
 void MyListener::exitB_op(tinyrexxParser::B_opContext * ctx){
 	if(ctx->AND() != NULL) {
-        	cout << " && ";
-    	} else if(ctx->OR() != NULL) {
-        	cout << " || ";
-    	}
+		cout << " && ";
+    } else if(ctx->OR() != NULL) {
+		cout << " || ";
+    }
 }
