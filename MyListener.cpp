@@ -26,20 +26,45 @@ void MyListener::exitProgram(tinyrexxParser::ProgramContext *ctx) {
     cout << "}" << endl;
 }
 
+/*
 void MyListener::enterStatement(tinyrexxParser::StatementContext * ctx) {
 	if (dynamic_cast<tinyrexxParser::If_stContext*>(ctx->parent) != nullptr){
-		cout << "{" << endl;
+		cout << string(indent, ' ') << "{" << endl;
+		indent += 4;
+	}
+}
+*/
+
+/*
+void MyListener::exitStatement(tinyrexxParser::StatementContext *ctx) {
+	if (dynamic_cast<tinyrexxParser::If_stContext*>(ctx->parent) != nullptr){
+		tinyrexxParser::If_stContext* parent = dynamic_cast<tinyrexxParser::If_stContext*>(ctx->parent);
+		indent -= 4;		
+		cout << string(indent, ' ') << "}" << endl;
+		//cout << " Numero di token "<<parent->getToken();
+		if (parent->statement().size() == 2 && ctx == parent->statement()[0]){
+			cout << string(indent, ' ') << "else" << endl;
+			//indent += 4;
+		}
+	}
+}*/
+
+void MyListener::enterBody(tinyrexxParser::BodyContext *ctx){
+	if (dynamic_cast<tinyrexxParser::If_stContext*>(ctx->parent) != nullptr){
+		cout << string(indent, ' ') << "{" << endl;
 		indent += 4;
 	}
 }
 
-void MyListener::exitStatement(tinyrexxParser::StatementContext *ctx) {
+void MyListener::exitBody(tinyrexxParser::BodyContext *ctx){
 	if (dynamic_cast<tinyrexxParser::If_stContext*>(ctx->parent) != nullptr){
-		cout << "}" << endl;
-		//cout << " Numero di statement "<<ctx->statement().size();
-		if (dynamic_cast<tinyrexxParser::If_stContext*>(ctx->parent)->statement().size() == 2 && ctx == (dynamic_cast<tinyrexxParser::If_stContext*>(ctx->parent))->statement()[0]){
-			cout << string(indent, ' ') << "else {" << endl;
-			indent += 4;
+		tinyrexxParser::If_stContext* parent = dynamic_cast<tinyrexxParser::If_stContext*>(ctx->parent);
+		indent -= 4;		
+		cout << string(indent, ' ') << "}" << endl;
+		//cout << " Numero di token "<<parent->getToken();
+		if (parent->body().size() == 2 && ctx == parent->body()[0]){
+			cout << string(indent, ' ') << "else" << endl;
+			//indent += 4;
 		}
 	}
 }
@@ -164,7 +189,7 @@ void MyListener::exitTerminate(tinyrexxParser::TerminateContext * ctx){
 }
 
 void MyListener::enterIf_st(tinyrexxParser::If_stContext * ctx){
-	cout << string(indent, ' ') << "if";
+	cout << string(indent, ' ') << "if ";
 }
 
 void MyListener::exitIf_st(tinyrexxParser::If_stContext * ctx){

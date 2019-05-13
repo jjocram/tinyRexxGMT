@@ -43,6 +43,9 @@ public:
   virtual void enterIf_st(tinyrexxParser::If_stContext * /*ctx*/) override { }
   virtual void exitIf_st(tinyrexxParser::If_stContext * /*ctx*/) override { }
 
+  virtual void enterBody(tinyrexxParser::BodyContext * /*ctx*/) override { }
+  virtual void exitBody(tinyrexxParser::BodyContext * /*ctx*/) override { }
+
   virtual void enterA_expr(tinyrexxParser::A_exprContext * /*ctx*/) override { }
   virtual void exitA_expr(tinyrexxParser::A_exprContext * /*ctx*/) override { }
 

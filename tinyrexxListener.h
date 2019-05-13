@@ -41,6 +41,9 @@ public:
   virtual void enterIf_st(tinyrexxParser::If_stContext *ctx) = 0;
   virtual void exitIf_st(tinyrexxParser::If_stContext *ctx) = 0;
 
+  virtual void enterBody(tinyrexxParser::BodyContext *ctx) = 0;
+  virtual void exitBody(tinyrexxParser::BodyContext *ctx) = 0;
+
   virtual void enterA_expr(tinyrexxParser::A_exprContext *ctx) = 0;
   virtual void exitA_expr(tinyrexxParser::A_exprContext *ctx) = 0;
 

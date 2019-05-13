@@ -10,7 +10,10 @@ input     : 'pull' ID ;
 test	  : a_expr r_op a_expr | '(' test ')' | test b_op test | a_expr | NOT test | test r_op test;
 w_loop    : 'do' 'while' test statement+ 'end' ;
 do_loop	  : 'do' assign 'to' a_expr statement+ 'end';
-if_st	  : 'if' test 'then' 'do' statement+ 'end' 'else' 'do' statement+ 'end' | 'if' test 'then' 'do' statement+ 'end';
+//if_st	  : 'if' test 'then' 'do' statement+ 'end' ELSE 'do' statement+ 'end' | 'if' test 'then' 'do' statement+ 'end';
+if_st	  : 'if' test 'then' 'do' body 'end' ELSE 'do' body 'end' | 'if' test 'then' 'do' body 'end';
+body	  : statement+;
+
 a_expr    : ID | NUMBER | '(' a_expr ')' | a_expr a_op a_expr | MINUS a_expr ;
 a_op      : MINUS | PLUS | MUL | DIV ;
 r_op      : EQUAL | LT | LEQ | GT | GEQ ;
@@ -29,6 +32,7 @@ GEQ       : '>=' ;
 AND	  : '&';
 OR	  : '|';
 NOT	  : '\\'; //sarebbe il \ ovvero il diverso
+ELSE	  : 'else';
 ID        : [a-z]+ ;
 NUMBER    : [0-9]+ ;
 WS        : [ \n\t]+ -> skip;

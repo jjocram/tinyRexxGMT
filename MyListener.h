@@ -18,8 +18,10 @@ public:
   void enterProgram(tinyrexxParser::ProgramContext * ctx);
   void exitProgram(tinyrexxParser::ProgramContext * ctx);
 
-  void enterStatement(tinyrexxParser::StatementContext * ctx); 
-  void exitStatement(tinyrexxParser::StatementContext * ctx); 
+  //void enterStatement(tinyrexxParser::StatementContext * ctx); 
+  //void exitStatement(tinyrexxParser::StatementContext * ctx); 
+  void enterBody(tinyrexxParser::BodyContext *ctx);
+  void exitBody(tinyrexxParser::BodyContext *ctx);
 
   void enterAssign(tinyrexxParser::AssignContext * ctx);
   void exitAssign(tinyrexxParser::AssignContext * ctx);

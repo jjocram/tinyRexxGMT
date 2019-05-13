@@ -13,16 +13,16 @@ class  tinyrexxParser : public antlr4::Parser {
 public:
   enum {
     T__0 = 1, T__1 = 2, T__2 = 3, T__3 = 4, T__4 = 5, T__5 = 6, T__6 = 7, 
-    T__7 = 8, T__8 = 9, T__9 = 10, T__10 = 11, T__11 = 12, T__12 = 13, MINUS = 14, 
-    PLUS = 15, MUL = 16, DIV = 17, EQUAL = 18, LT = 19, LEQ = 20, GT = 21, 
-    GEQ = 22, AND = 23, OR = 24, NOT = 25, ID = 26, NUMBER = 27, WS = 28, 
+    T__7 = 8, T__8 = 9, T__9 = 10, T__10 = 11, T__11 = 12, MINUS = 13, PLUS = 14, 
+    MUL = 15, DIV = 16, EQUAL = 17, LT = 18, LEQ = 19, GT = 20, GEQ = 21, 
+    AND = 22, OR = 23, NOT = 24, ELSE = 25, ID = 26, NUMBER = 27, WS = 28, 
     ErrorChar = 29
   };
 
   enum {
     RuleProgram = 0, RuleStatement = 1, RuleAssign = 2, RulePrint = 3, RuleInput = 4, 
-    RuleTest = 5, RuleW_loop = 6, RuleDo_loop = 7, RuleIf_st = 8, RuleA_expr = 9, 
-    RuleA_op = 10, RuleR_op = 11, RuleB_op = 12, RuleTerminate = 13
+    RuleTest = 5, RuleW_loop = 6, RuleDo_loop = 7, RuleIf_st = 8, RuleBody = 9, 
+    RuleA_expr = 10, RuleA_op = 11, RuleR_op = 12, RuleB_op = 13, RuleTerminate = 14
   };
 
   tinyrexxParser(antlr4::TokenStream *input);
@@ -44,6 +44,7 @@ public:
   class W_loopContext;
   class Do_loopContext;
   class If_stContext;
+  class BodyContext;
   class A_exprContext;
   class A_opContext;
   class R_opContext;
@@ -178,6 +179,21 @@ public:
     If_stContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
     TestContext *test();
+    std::vector<BodyContext *> body();
+    BodyContext* body(size_t i);
+    antlr4::tree::TerminalNode *ELSE();
+
+    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
+    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
+   
+  };
+
+  If_stContext* if_st();
+
+  class  BodyContext : public antlr4::ParserRuleContext {
+  public:
+    BodyContext(antlr4::ParserRuleContext *parent, size_t invokingState);
+    virtual size_t getRuleIndex() const override;
     std::vector<StatementContext *> statement();
     StatementContext* statement(size_t i);
 
@@ -186,7 +202,7 @@ public:
    
   };
 
-  If_stContext* if_st();
+  BodyContext* body();
 
   class  A_exprContext : public antlr4::ParserRuleContext {
   public:
