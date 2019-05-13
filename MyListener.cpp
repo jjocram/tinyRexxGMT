@@ -94,6 +94,11 @@ void MyListener::exitInput(tinyrexxParser::InputContext * ctx) {
 
 
 void MyListener::enterA_expr(tinyrexxParser::A_exprContext * ctx) {
+    auto parent = dynamic_cast<tinyrexxParser::Do_loopContext*>(ctx->parent);
+    if (parent){
+	cout << parent->assign()->ID()->getText() << " < ";
+}
+
     // controllo in quale caso sono
     if(ctx->ID() != NULL) {
         // caso ID semplice
@@ -126,6 +131,11 @@ void MyListener::exitA_expr(tinyrexxParser::A_exprContext * ctx) {
         // caso parentesi
         cout << ")" ; //unica differenza de enterA_expr che chiude la parentesi aperta
     }
+
+    auto parent = dynamic_cast<tinyrexxParser::Do_loopContext*>(ctx->parent);
+    if (parent){
+	cout <<";" << parent->assign()->ID()->getText() << "++){ ";
+}
 }
 
 
@@ -202,10 +212,11 @@ void MyListener::exitIf_st(tinyrexxParser::If_stContext * ctx){
 }
 
 void MyListener::enterDo_loop(tinyrexxParser::Do_loopContext * ctx){
+cout << "for (";
 }
 
 void MyListener::exitDo_loop(tinyrexxParser::Do_loopContext * ctx){
-
+cout << "}\n";
 }
 
 void MyListener::exitB_op(tinyrexxParser::B_opContext * ctx){
