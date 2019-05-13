@@ -172,11 +172,17 @@ void MyListener::exitW_loop(tinyrexxParser::W_loopContext * ctx){
 
 
 void MyListener::enterTest(tinyrexxParser::TestContext * ctx){
-    cout << "(";
+	if (!(ctx->r_op() == nullptr && ctx->b_op() == nullptr && ctx->a_expr().size() == 0))
+    		cout << "(";
+
+	if (ctx->NOT() != 0){
+		cout << "!";
+	}
 }
 
 void MyListener::exitTest(tinyrexxParser::TestContext * ctx){
-    cout << ")";
+	if (!(ctx->r_op() == nullptr && ctx->b_op() == nullptr && ctx->a_expr().size() == 0))
+    		cout << ")";
 }
 
 
