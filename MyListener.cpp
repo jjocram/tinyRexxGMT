@@ -51,7 +51,7 @@ void MyListener::exitStatement(tinyrexxParser::StatementContext *ctx) {
 
 void MyListener::enterBody(tinyrexxParser::BodyContext *ctx){
 	if (dynamic_cast<tinyrexxParser::If_stContext*>(ctx->parent) != nullptr) {
-		cout << string(indent, ' ') << "{" << endl;
+		cout <<string(indent, ' ') <<  "{" << endl;
 		indent += 4;
 	}
 }
@@ -190,14 +190,20 @@ void MyListener::enterTest(tinyrexxParser::TestContext * ctx){
 	if (!(ctx->r_op() == nullptr && ctx->b_op() == nullptr && ctx->a_expr().size() == 0)) {
 		cout << "(";
 	}
-	if (ctx->NOT() != 0) {
+	if (ctx->NOT() != 0 ) {
 		cout << "!";
+		if (ctx->a_expr().size() == 0)
+			cout << "(";
 	}
 }
 
 void MyListener::exitTest(tinyrexxParser::TestContext * ctx){
 	if (!(ctx->r_op() == nullptr && ctx->b_op() == nullptr && ctx->a_expr().size() == 0)) {
 		cout << ")";
+	}
+	if (ctx->NOT() != 0 ) {
+		if (ctx->a_expr().size() == 0)
+			cout << ")";
 	}
 }
 
