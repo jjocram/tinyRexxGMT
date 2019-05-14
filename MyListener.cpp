@@ -225,8 +225,8 @@ indent +=4;
 }
 
 void MyListener::exitDo_loop(tinyrexxParser::Do_loopContext * ctx){
-cout << "}\n";
 indent -= 4;
+cout << string(indent, ' ') << "}\n";
 }
 
 void MyListener::exitB_op(tinyrexxParser::B_opContext * ctx){
