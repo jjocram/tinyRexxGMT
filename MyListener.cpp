@@ -6,7 +6,7 @@
 using namespace std;
 
 MyListener::MyListener(const std::set<std::string> &ids) {
-  vars = ids;
+    vars = ids;
 }
 
 
@@ -26,50 +26,24 @@ void MyListener::exitProgram(tinyrexxParser::ProgramContext *ctx) {
     cout << "}" << endl;
 }
 
-/*
-void MyListener::enterStatement(tinyrexxParser::StatementContext * ctx) {
-	if (dynamic_cast<tinyrexxParser::If_stContext*>(ctx->parent) != nullptr){
-		cout << string(indent, ' ') << "{" << endl;
-		indent += 4;
-	}
-}
-*/
-
-/*
-void MyListener::exitStatement(tinyrexxParser::StatementContext *ctx) {
-	if (dynamic_cast<tinyrexxParser::If_stContext*>(ctx->parent) != nullptr){
-		tinyrexxParser::If_stContext* parent = dynamic_cast<tinyrexxParser::If_stContext*>(ctx->parent);
-		indent -= 4;		
-		cout << string(indent, ' ') << "}" << endl;
-		//cout << " Numero di token "<<parent->getToken();
-		if (parent->statement().size() == 2 && ctx == parent->statement()[0]){
-			cout << string(indent, ' ') << "else" << endl;
-			//indent += 4;
-		}
-	}
-}*/
 
 void MyListener::enterBody(tinyrexxParser::BodyContext *ctx){
 	indent += 4;	
 	cout <<" {" << endl;	
 }
 
-void MyListener::exitBody(tinyrexxParser::BodyContext *ctx){
-	if (dynamic_cast<tinyrexxParser::If_stContext*>(ctx->parent) != nullptr){
-		tinyrexxParser::If_stContext* parent = dynamic_cast<tinyrexxParser::If_stContext*>(ctx->parent);
-		indent -= 4;		
-		cout << string(indent, ' ') << "}" << endl;
-		if (parent->body().size() == 2 && ctx == parent->body()[0]) {
-			cout << string(indent, ' ') << "else" << endl;
-			if (parent->ELSE())
-				cout << string(indent-1, ' ');
-		}
-	}
-	else{
-		indent -= 4;
-		cout << string(indent, ' ') << "}" << endl;
+void MyListener::exitBody(tinyrexxParser::BodyContext *ctx) {
+    tinyrexxParser::If_stContext* parent = dynamic_cast<tinyrexxParser::If_stContext*>(ctx->parent);
+    indent -= 4;		
+    cout << string(indent, ' ') << "}" << endl;
+	if (parent != nullptr && parent->body().size() == 2 && ctx == parent->body()[0]) {
+        cout << string(indent, ' ') << "else" << endl;
+        if (parent->ELSE() != NULL) {
+            cout << string(indent-1, ' ');
+        }
 	}
 }
+
 
 void MyListener::enterAssign(tinyrexxParser::AssignContext * ctx) {
     string name = ctx->ID()->getText(); // che variabile stiamo assegnando?
@@ -87,6 +61,7 @@ void MyListener::exitAssign(tinyrexxParser::AssignContext * ctx) {
 	}
 }
 
+
 void MyListener::enterPrint(tinyrexxParser::PrintContext * ctx) {
     cout << string(indent, ' ') << "cout << " ;    
 }
@@ -103,7 +78,7 @@ void MyListener::exitInput(tinyrexxParser::InputContext * ctx) {
 
 
 void MyListener::enterA_expr(tinyrexxParser::A_exprContext * ctx) {
-    auto parent = dynamic_cast<tinyrexxParser::Do_loopContext*>(ctx->parent);
+    tinyrexxParser::Do_loopContext* parent = dynamic_cast<tinyrexxParser::Do_loopContext*>(ctx->parent);
     if (parent) {
 		cout << " " << parent->assign()->ID()->getText() << " < ";
 	}
@@ -141,7 +116,7 @@ void MyListener::exitA_expr(tinyrexxParser::A_exprContext * ctx) {
         cout << ")" ; //unica differenza de enterA_expr che chiude la parentesi aperta
     }
 
-    auto parent = dynamic_cast<tinyrexxParser::Do_loopContext*>(ctx->parent);
+    tinyrexxParser::Do_loopContext* parent = dynamic_cast<tinyrexxParser::Do_loopContext*>(ctx->parent);
     if (parent) {
 		cout <<"; " << parent->assign()->ID()->getText() << "++)";
 	}
@@ -162,6 +137,7 @@ void MyListener::exitA_op(tinyrexxParser::A_opContext * ctx) {
     }
 }
 
+
 void MyListener::exitR_op(tinyrexxParser::R_opContext * ctx) {
     // controllo operatore aritmetico
     if(ctx->EQUAL() != NULL) {
@@ -178,13 +154,11 @@ void MyListener::exitR_op(tinyrexxParser::R_opContext * ctx) {
 }
 
 
-void MyListener::enterW_loop(tinyrexxParser::W_loopContext * ctx){
+void MyListener::enterW_loop(tinyrexxParser::W_loopContext * ctx) {
     cout << string(indent, ' ') << "while";
-    //indent += 4;
 }
 
-
-void MyListener::exitW_loop(tinyrexxParser::W_loopContext * ctx){
+void MyListener::exitW_loop(tinyrexxParser::W_loopContext * ctx) {
 /*
     indent -= 4;
     cout << string(indent, ' ') << "}" << endl;
@@ -192,82 +166,57 @@ void MyListener::exitW_loop(tinyrexxParser::W_loopContext * ctx){
 }
 
 
-void MyListener::enterTest(tinyrexxParser::TestContext * ctx){
-/*
-
-	if (dynamic_cast<tinyrexxParser::TestContext *>(ctx->parent) != nullptr ctx->NOT() == 0)
-		return;
-
-	if (!(ctx->r_op() == nullptr && ctx->b_op() == nullptr && ctx->a_expr().size() == 0)) {
+void MyListener::enterTest(tinyrexxParser::TestContext * ctx) {
+    if (dynamic_cast<tinyrexxParser::If_stContext *>(ctx->parent) || dynamic_cast<tinyrexxParser::W_loopContext *>(ctx->parent)) {
+	    cout << "(";
+    }
+    if (ctx->r_op() == nullptr && ctx->b_op() == nullptr && ctx->a_expr().size() == 0 && ctx->NOT() == nullptr) {
 		cout << "(";
 	}
 
-	if (ctx->NOT() != 0 ) {
-		cout << "!";
-		if (ctx->a_expr().size() == 0)
-			cout << "(";
-	}
-*/
-if (dynamic_cast<tinyrexxParser::If_stContext *>(ctx->parent) || dynamic_cast<tinyrexxParser::W_loopContext *>(ctx->parent))
-	cout << "(";
-
-if (ctx->r_op() == nullptr && ctx->b_op() == nullptr && ctx->a_expr().size() == 0 && ctx->NOT() == nullptr) {
-		cout << "(";
-	}
-
-if (ctx->NOT() != nullptr){
-	cout << "!";
-	if (ctx->a_expr().size() == 0)
-		cout << "(";
-}
+    if (ctx->NOT() != nullptr) {
+	    cout << "!";
+	    if (ctx->a_expr().size() == 0) {
+		    cout << "(";
+        }
+    }
 }
 
-void MyListener::exitTest(tinyrexxParser::TestContext * ctx){
-/*
-if (dynamic_cast<tinyrexxParser::TestContext *>(ctx->parent) != nullptr)
-		return;
+void MyListener::exitTest(tinyrexxParser::TestContext * ctx) {
+    if (dynamic_cast<tinyrexxParser::If_stContext *>(ctx->parent) || dynamic_cast<tinyrexxParser::W_loopContext *>(ctx->parent)) {
+	    cout << ")";
+    }
 
-	if (!(ctx->r_op() == nullptr && ctx->b_op() == nullptr && ctx->a_expr().size() == 0)) {
-		cout << ")";
-	}
-	if (ctx->NOT() != 0 ) {
-		if (ctx->a_expr().size() == 0)
-			cout << ")";
-	}
-*/
-if (dynamic_cast<tinyrexxParser::If_stContext *>(ctx->parent) || dynamic_cast<tinyrexxParser::W_loopContext *>(ctx->parent))
-	cout << ")";
-
-
-if (ctx->r_op() == nullptr && ctx->b_op() == nullptr && ctx->a_expr().size() == 0 && ctx->NOT() == nullptr) {
+    if (ctx->r_op() == nullptr && ctx->b_op() == nullptr && ctx->a_expr().size() == 0 && ctx->NOT() == nullptr) {
 		cout << ")";
 	}
 
-if (ctx->NOT() != nullptr){
-	if (ctx->a_expr().size() == 0)
-		cout << ")";
-}
+    if (ctx->NOT() != nullptr) {
+	    if (ctx->a_expr().size() == 0) {
+		    cout << ")";
+        }
+    }
 }
 
 
-void MyListener::enterTerminate(tinyrexxParser::TerminateContext * ctx){
+void MyListener::enterTerminate(tinyrexxParser::TerminateContext * ctx) {
 	cout << string(indent, ' ') << "return ";
 }
 
-void MyListener::exitTerminate(tinyrexxParser::TerminateContext * ctx){
+void MyListener::exitTerminate(tinyrexxParser::TerminateContext * ctx) {
 	cout << ";" << endl;
 }
 
-void MyListener::enterIf_st(tinyrexxParser::If_stContext * ctx){
+
+void MyListener::enterIf_st(tinyrexxParser::If_stContext * ctx) {
 	cout << string(indent, ' ') << "if ";
 }
 
-void MyListener::exitIf_st(tinyrexxParser::If_stContext * ctx){
+void MyListener::exitIf_st(tinyrexxParser::If_stContext * ctx) {
 }
 
 void MyListener::enterDo_loop(tinyrexxParser::Do_loopContext * ctx){
 	cout << string(indent, ' ') <<"for (";
-	//indent +=4;
 }
 
 void MyListener::exitDo_loop(tinyrexxParser::Do_loopContext * ctx){
