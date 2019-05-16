@@ -50,8 +50,8 @@ void MyListener::exitStatement(tinyrexxParser::StatementContext *ctx) {
 }*/
 
 void MyListener::enterBody(tinyrexxParser::BodyContext *ctx){
-	cout << " {" << endl;
-	indent += 4;
+	indent += 4;	
+	cout <<" {" << endl;	
 }
 
 void MyListener::exitBody(tinyrexxParser::BodyContext *ctx){
@@ -61,6 +61,8 @@ void MyListener::exitBody(tinyrexxParser::BodyContext *ctx){
 		cout << string(indent, ' ') << "}" << endl;
 		if (parent->body().size() == 2 && ctx == parent->body()[0]) {
 			cout << string(indent, ' ') << "else" << endl;
+			if (parent->ELSE())
+				cout << string(indent-1, ' ');
 		}
 	}
 	else{
@@ -141,7 +143,7 @@ void MyListener::exitA_expr(tinyrexxParser::A_exprContext * ctx) {
 
     auto parent = dynamic_cast<tinyrexxParser::Do_loopContext*>(ctx->parent);
     if (parent) {
-		cout <<"; " << parent->assign()->ID()->getText() << "++) { " << endl;
+		cout <<"; " << parent->assign()->ID()->getText() << "++)";
 	}
 }
 
@@ -265,12 +267,12 @@ void MyListener::exitIf_st(tinyrexxParser::If_stContext * ctx){
 
 void MyListener::enterDo_loop(tinyrexxParser::Do_loopContext * ctx){
 	cout << string(indent, ' ') <<"for (";
-	indent +=4;
+	//indent +=4;
 }
 
 void MyListener::exitDo_loop(tinyrexxParser::Do_loopContext * ctx){
-	indent -= 4;
-	cout << string(indent, ' ') << "}" << endl;
+	//indent -= 4;
+	//cout << string(indent, ' ') << "}" << endl;
 }
 
 void MyListener::exitB_op(tinyrexxParser::B_opContext * ctx){
