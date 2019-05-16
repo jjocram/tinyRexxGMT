@@ -18,8 +18,6 @@ public:
   void enterProgram(tinyrexxParser::ProgramContext * ctx);
   void exitProgram(tinyrexxParser::ProgramContext * ctx);
 
-  //void enterStatement(tinyrexxParser::StatementContext * ctx); 
-  //void exitStatement(tinyrexxParser::StatementContext * ctx); 
   void enterBody(tinyrexxParser::BodyContext *ctx);
   void exitBody(tinyrexxParser::BodyContext *ctx);
 
@@ -34,22 +32,18 @@ public:
   void enterW_loop(tinyrexxParser::W_loopContext * ctx);
   void exitW_loop(tinyrexxParser::W_loopContext * ctx);
 
-  //TODO: rifare
   void enterTest(tinyrexxParser::TestContext * ctx);
   void exitTest(tinyrexxParser::TestContext * ctx);
 
   void enterA_expr(tinyrexxParser::A_exprContext * ctx);
   void exitA_expr(tinyrexxParser::A_exprContext * ctx);
 
-  //TODO: controllare
   void enterTerminate(tinyrexxParser::TerminateContext * ctx);
   void exitTerminate(tinyrexxParser::TerminateContext * ctx);
 
-  //TODO
   void enterDo_loop(tinyrexxParser::Do_loopContext * ctx);
   void exitDo_loop(tinyrexxParser::Do_loopContext * ctx);
 
-  //TODO
   void enterIf_st(tinyrexxParser::If_stContext * ctx);
   void exitIf_st(tinyrexxParser::If_stContext * ctx);
 
@@ -59,4 +53,3 @@ public:
   void exitR_op(tinyrexxParser::R_opContext * ctx);
 
 };
-
