@@ -50,10 +50,8 @@ void MyListener::exitStatement(tinyrexxParser::StatementContext *ctx) {
 }*/
 
 void MyListener::enterBody(tinyrexxParser::BodyContext *ctx){
-	if (dynamic_cast<tinyrexxParser::If_stContext*>(ctx->parent) != nullptr) {
-		cout <<string(indent, ' ') <<  "{" << endl;
-		indent += 4;
-	}
+	cout << " {" << endl;
+	indent += 4;
 }
 
 void MyListener::exitBody(tinyrexxParser::BodyContext *ctx){
@@ -64,6 +62,10 @@ void MyListener::exitBody(tinyrexxParser::BodyContext *ctx){
 		if (parent->body().size() == 2 && ctx == parent->body()[0]) {
 			cout << string(indent, ' ') << "else" << endl;
 		}
+	}
+	else{
+		indent -= 4;
+		cout << string(indent, ' ') << "}" << endl;
 	}
 }
 
@@ -176,28 +178,53 @@ void MyListener::exitR_op(tinyrexxParser::R_opContext * ctx) {
 
 void MyListener::enterW_loop(tinyrexxParser::W_loopContext * ctx){
     cout << string(indent, ' ') << "while";
-    indent += 4;
+    //indent += 4;
 }
 
 
 void MyListener::exitW_loop(tinyrexxParser::W_loopContext * ctx){
+/*
     indent -= 4;
     cout << string(indent, ' ') << "}" << endl;
+*/
 }
 
 
 void MyListener::enterTest(tinyrexxParser::TestContext * ctx){
+/*
+
+	if (dynamic_cast<tinyrexxParser::TestContext *>(ctx->parent) != nullptr ctx->NOT() == 0)
+		return;
+
 	if (!(ctx->r_op() == nullptr && ctx->b_op() == nullptr && ctx->a_expr().size() == 0)) {
 		cout << "(";
 	}
+
 	if (ctx->NOT() != 0 ) {
 		cout << "!";
 		if (ctx->a_expr().size() == 0)
 			cout << "(";
 	}
+*/
+if (dynamic_cast<tinyrexxParser::If_stContext *>(ctx->parent) || dynamic_cast<tinyrexxParser::W_loopContext *>(ctx->parent))
+	cout << "(";
+
+if (ctx->r_op() == nullptr && ctx->b_op() == nullptr && ctx->a_expr().size() == 0 && ctx->NOT() == nullptr) {
+		cout << "(";
+	}
+
+if (ctx->NOT() != nullptr){
+	cout << "!";
+	if (ctx->a_expr().size() == 0)
+		cout << "(";
+}
 }
 
 void MyListener::exitTest(tinyrexxParser::TestContext * ctx){
+/*
+if (dynamic_cast<tinyrexxParser::TestContext *>(ctx->parent) != nullptr)
+		return;
+
 	if (!(ctx->r_op() == nullptr && ctx->b_op() == nullptr && ctx->a_expr().size() == 0)) {
 		cout << ")";
 	}
@@ -205,6 +232,19 @@ void MyListener::exitTest(tinyrexxParser::TestContext * ctx){
 		if (ctx->a_expr().size() == 0)
 			cout << ")";
 	}
+*/
+if (dynamic_cast<tinyrexxParser::If_stContext *>(ctx->parent) || dynamic_cast<tinyrexxParser::W_loopContext *>(ctx->parent))
+	cout << ")";
+
+
+if (ctx->r_op() == nullptr && ctx->b_op() == nullptr && ctx->a_expr().size() == 0 && ctx->NOT() == nullptr) {
+		cout << ")";
+	}
+
+if (ctx->NOT() != nullptr){
+	if (ctx->a_expr().size() == 0)
+		cout << ")";
+}
 }
 
 

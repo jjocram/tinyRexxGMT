@@ -1,5 +1,5 @@
 pull n
-do while n > 0
+do while a==b & \(a==c & \(b == c))
     say n
     n = n - 1
 end
