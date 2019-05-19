@@ -134,6 +134,8 @@ void MyListener::exitA_op(tinyrexxParser::A_opContext * ctx) {
         cout << " * ";
     } else if(ctx->DIV() != NULL) {
         cout << " / ";
+    } else if(ctx->MOD() != NULL) {
+		cout << " % ";
     }
 }
 

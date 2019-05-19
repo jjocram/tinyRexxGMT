@@ -14,7 +14,7 @@ if_st	  : 'if' test 'then' 'do' body 'end' ELSE 'do' body 'end' | 'if' test 'the
 body	  : statement+;
 
 a_expr    : ID | NUMBER | '(' a_expr ')' | a_expr a_op a_expr | MINUS a_expr ;
-a_op      : MINUS | PLUS | MUL | DIV ;
+a_op      : MINUS | PLUS | MUL | DIV | MOD;
 r_op      : EQUAL | LT | LEQ | GT | GEQ ;
 b_op	  : AND | OR;
 terminate : 'exit' a_expr;
@@ -23,6 +23,7 @@ MINUS     : '-' ;
 PLUS      : '+' ;
 MUL       : '*' ;
 DIV       : '/' ;
+MOD		  : '%';
 EQUAL     : '==' ;
 LT        : '<' ;
 LEQ       : '<=' ;
