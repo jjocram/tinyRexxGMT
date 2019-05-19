@@ -14,9 +14,9 @@ public:
   enum {
     T__0 = 1, T__1 = 2, T__2 = 3, T__3 = 4, T__4 = 5, T__5 = 6, T__6 = 7, 
     T__7 = 8, T__8 = 9, T__9 = 10, T__10 = 11, T__11 = 12, MINUS = 13, PLUS = 14, 
-    MUL = 15, DIV = 16, EQUAL = 17, LT = 18, LEQ = 19, GT = 20, GEQ = 21, 
-    AND = 22, OR = 23, NOT = 24, ELSE = 25, ID = 26, NUMBER = 27, WS = 28, 
-    ErrorChar = 29
+    MUL = 15, DIV = 16, MOD = 17, EQUAL = 18, LT = 19, LEQ = 20, GT = 21, 
+    GEQ = 22, AND = 23, OR = 24, NOT = 25, ELSE = 26, ID = 27, NUMBER = 28, 
+    WS = 29, ErrorChar = 30
   };
 
   tinyrexxLexer(antlr4::CharStream *input);
