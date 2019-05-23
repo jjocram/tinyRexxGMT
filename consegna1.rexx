@@ -28,8 +28,19 @@ do
 	end		
 end 
 
-if (a==\b & \(a==c)) | ( \a == \c  & a == 5+2*3) then
-do
-	say 42 
-end
-
+do i = 0 to a
+	do while i<10
+		if i < 5 then 
+		do
+			say i
+		end
+		else do
+			say i*a
+		end
+	end
+	pull d
+	if d % 0 then
+	do 
+		say 1
+	end
+end 		
