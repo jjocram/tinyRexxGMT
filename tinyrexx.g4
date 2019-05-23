@@ -1,6 +1,6 @@
 grammar tinyrexx;
 
-program   : statement+;
+program   : statement+ EOF;
           
 statement : assign | print | input | w_loop | terminate | if_st | do_loop;
 
