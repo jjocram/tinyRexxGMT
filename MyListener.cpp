@@ -27,7 +27,7 @@ void MyListener::exitProgram(tinyrexxParser::ProgramContext *ctx) {
 }
 
 
-void MyListener::enterBody(tinyrexxParser::BodyContext *ctx){
+void MyListener::enterBody(tinyrexxParser::BodyContext *ctx) {
 	indent += 4;	
 	cout <<" {" << endl;	
 }
@@ -50,7 +50,7 @@ void MyListener::enterAssign(tinyrexxParser::AssignContext * ctx) {
     if (dynamic_cast<tinyrexxParser::Do_loopContext*>(ctx->parent)) {
 		cout << name << " = ";
 	} else {
-		cout << string(indent, ' ') << name << " = " ; //scrive rientrato di n spazzi 'var =' 
+		cout << string(indent, ' ') << name << " = " ; //scrive rientrato di n spazi 'var =' 
     }
 }
 
@@ -161,10 +161,6 @@ void MyListener::enterW_loop(tinyrexxParser::W_loopContext * ctx) {
 }
 
 void MyListener::exitW_loop(tinyrexxParser::W_loopContext * ctx) {
-/*
-    indent -= 4;
-    cout << string(indent, ' ') << "}" << endl;
-*/
 }
 
 
@@ -217,16 +213,16 @@ void MyListener::enterIf_st(tinyrexxParser::If_stContext * ctx) {
 void MyListener::exitIf_st(tinyrexxParser::If_stContext * ctx) {
 }
 
-void MyListener::enterDo_loop(tinyrexxParser::Do_loopContext * ctx){
-	cout << string(indent, ' ') <<"for (";
+
+void MyListener::enterDo_loop(tinyrexxParser::Do_loopContext * ctx) {
+	cout << string(indent, ' ') << "for (";
 }
 
-void MyListener::exitDo_loop(tinyrexxParser::Do_loopContext * ctx){
-	//indent -= 4;
-	//cout << string(indent, ' ') << "}" << endl;
+void MyListener::exitDo_loop(tinyrexxParser::Do_loopContext * ctx) {
 }
 
-void MyListener::exitB_op(tinyrexxParser::B_opContext * ctx){
+
+void MyListener::exitB_op(tinyrexxParser::B_opContext * ctx) {
 	if(ctx->AND() != NULL) {
         cout << " && ";
     } else if(ctx->OR() != NULL) {

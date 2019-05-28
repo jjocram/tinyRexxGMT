@@ -1,0 +1,11 @@
+﻿-- PROGETTO AUTOMI E LINGUAGGI FORMALI 2018/19 --
+FILE DA CONSEGNARE:
+- consegna1.rexx,
+  consegna1.cpp : esempio di molte funzionalità della grammatica, senza senso logico;
+- consegna2.rexx,
+  consegna2.cpp : inserito da tastiera un numero intero n, vengono stampati a video i numeri pari;
+- consegna3.rexx,
+  consegna3.cpp : implementazione dell'algoritmo di Euclide.
+- MyListener.h,
+  MyListener.cpp : classe che gestisce la conversione del codice REXX in C++
+- tinyrexx.g4 : file contenente la grammatica del linguaggio REXX
