@@ -5,7 +5,6 @@ using namespace std;
 int main() {
     int a = 0;
     int b = 0;
-    int oldr = 0;
     int r = 0;
     cin >> a;
     cin >> b;
@@ -17,14 +16,11 @@ int main() {
             b = -b;
         }
         r = a % b;
-        oldr = 0;
         while(!(r == 0)) {
             a = b;
-            oldr = r;
             r = a % b;
+            b = r;
         }
-        r = oldr;
-        cout << r << endl;
-        cout << -r << endl;
+        cout << b << endl;
     }
 }

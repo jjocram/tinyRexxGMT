@@ -13,13 +13,10 @@ do
     end
 
     r = a % b
-    oldr = 0
     do while \(r == 0)
         a = b
-        oldr = r
         r = a % b
+	b = r
     end
-    r = oldr
-    say r
-    say -r
+    say b 
 end
