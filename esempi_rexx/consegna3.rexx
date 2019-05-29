@@ -15,8 +15,8 @@ do
     r = a % b
     do while \(r == 0)
         a = b
-        r = a % b
 	b = r
+        r = a % b
     end
     say b 
 end

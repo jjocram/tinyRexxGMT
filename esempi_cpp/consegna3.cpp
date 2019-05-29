@@ -18,8 +18,8 @@ int main() {
         r = a % b;
         while(!(r == 0)) {
             a = b;
-            r = a % b;
             b = r;
+            r = a % b;
         }
         cout << b << endl;
     }
